@@ -107,6 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
         radioElement = document.querySelector('#' + r);
 
         if (quizItem.a == i) {
+          score+=1;
           //change background color of li element here
         }
 
@@ -126,10 +127,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // submit button selected
 const submitButton = document.querySelector("#btnSubmit");
-  submitButton.addEventListener("submit", function(){
-     const displayScore = document.querySelector("#score");
+  submitButton.addEventListener("submit", function(e){
+    e.preventDefault();
+    const displayScore = document.createElement("div");
+    displayScore.innerHTML= calculateScore();
 
-     displayScore.innerHTML= calculateScore();
   });
     
   
