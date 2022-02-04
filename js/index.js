@@ -20,10 +20,29 @@
 *************************** */
 
 window.addEventListener('DOMContentLoaded', () => {
-  const start = document.querySelector('#start');
+  const start = document.querySelector("#start");
+ 
+  // timer starts here
+  const  totalMin=5;
+  const time = totalMin*60;
+  // to be diplayed at span with id time at index.html
+  const countEle = document.querySelector("#time");
+  
+  setInterval(updateCountdown, 1000);
+
+  function updateCountdown (){
+         let minutes = Math.floor(time/60);
+         let seconds = time % 60;
+         seconds=seconds<10?"0"+seconds:seconds;
+         countEle.innerHTML=`${minutes}:${seconds}`;
+         time--;
+  }
+
+// timer ends here
+
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
-    start.style.display = 'none';
+     start.style.display = 'none';
   });
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
@@ -40,10 +59,24 @@ window.addEventListener('DOMContentLoaded', () => {
       a: 3,
     },
     {
-      q: 'What is the capital of Australia',
+      q: 'What is the capital of Australia?',
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+
+    {
+      q: 'What is the capital of India?',
+      o: ['Kolkata', 'Mumbai', 'NewDeldi', 'Chennai'],
+      a: 2,
+    },
+
+    {
+      q: 'What is the capital of NewZealand?',
+      o: ['Auckland', 'Dunedin', 'ChristChurch', 'Wellington'],
+      a: 3,
+    },
+
+
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -62,8 +95,7 @@ window.addEventListener('DOMContentLoaded', () => {
       quizWrap.innerHTML = quizDisplay;
     });
   };
-
-  // Calculate the score
+   // Calculate the score
   const calculateScore = () => {
     let score = 0;
     quizArray.map((quizItem, index) => {
@@ -85,6 +117,21 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+
+  
   // call the displayQuiz function
   displayQuiz();
-});
+
+// EventListener added to submit biutton
+
+    // submit button selected
+const submitButton = document.querySelector("#btnSubmit");
+  submitButton.addEventListener("submit", function(){
+     const displayScore = document.querySelector("#score");
+
+     displayScore.innerHTML= calculateScore();
+  });
+    
+  
+})
+
